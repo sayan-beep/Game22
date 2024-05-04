@@ -25,10 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Game manages all objects in the game and is responsible for updating all states and render all
- * objects to the screen
- */
+
 class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     private final Tilemap tilemap;
