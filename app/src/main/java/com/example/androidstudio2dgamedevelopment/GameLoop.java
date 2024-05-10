@@ -39,7 +39,7 @@ public class GameLoop extends Thread{
         Log.d("GameLoop.java", "run()");
         super.run();
 
-        // Declare time and cycle count variables
+        // Объявлять переменные времени и количества циклов
         int updateCount = 0;
         int frameCount = 0;
 
@@ -47,12 +47,12 @@ public class GameLoop extends Thread{
         long elapsedTime;
         long sleepTime;
 
-        // Game loop
+        // Игровой цикл
         Canvas canvas = null;
         startTime = System.currentTimeMillis();
         while(isRunning) {
 
-            // Try to update and render game
+            // Попробуйте обновить и отрендерить игру
             try {
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
@@ -73,8 +73,8 @@ public class GameLoop extends Thread{
                     }
                 }
             }
-			
-            // Pause game loop to not exceed target UPS
+
+            // Приостановите цикл игры, чтобы не превысить заданные значения.
             elapsedTime = System.currentTimeMillis() - startTime;
             sleepTime = (long) (updateCount*UPS_PERIOD - elapsedTime);
             if(sleepTime > 0) {
@@ -85,7 +85,7 @@ public class GameLoop extends Thread{
                 }
             }
 
-            // Skip frames to keep up with target UPS
+            // Пропустить кадры, чтобы не отставать от целевых показателей
             while(sleepTime < 0 && updateCount < MAX_UPS-1) {
                 game.update();
                 updateCount++;
@@ -93,7 +93,7 @@ public class GameLoop extends Thread{
                 sleepTime = (long) (updateCount*UPS_PERIOD - elapsedTime);
             }
 
-            // Calculate average UPS and FPS
+            // вычислить среднее значение UPS and FPS
             elapsedTime = System.currentTimeMillis() - startTime;
             if(elapsedTime >= 1000) {
                 averageUPS = updateCount / (1E-3 * elapsedTime);

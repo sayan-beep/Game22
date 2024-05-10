@@ -43,28 +43,28 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     public Game(Context context) {
         super(context);
 
-        // Get surface holder and add callback
+        // Получить surface holder и добавить обратный вызов
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
-        // Initialize game panels
+        // Инициализировать игровые панели
         performance = new Performance(context, gameLoop);
         gameOver = new GameOver(context);
         joystick = new Joystick(275, 700, 70, 40);
 
-        // Initialize game objects
+        // Инициализировать игровые объекты
         SpriteSheet spriteSheet = new SpriteSheet(context);
         Animator animator = new Animator(spriteSheet.getPlayerSpriteArray());
         player = new Player(context, joystick, 2*500, 500, 32, animator);
 
-        // Initialize display and center it around the player
+        // Инициализируйте отображение и отцентрируйте его вокруг проигрывателя
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
 
-        // Initialize Tilemap
+        // Инициализировать мозаичную карту (Tilemap)
         tilemap = new Tilemap(spriteSheet);
 
         setFocusable(true);
@@ -73,25 +73,25 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        // Handle user input touch event actions
+        // Обрабатывать действия по событиям касания, вводимые пользователем
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (joystick.getIsPressed()) {
-                    // Joystick was pressed before this event -> cast spell
+                    // Джойстик был нажат до этого события -> произнесение заклинания
                     numberOfSpellsToCast ++;
                 } else if (joystick.isPressed((double) event.getX(), (double) event.getY())) {
-                    // Joystick is pressed in this event -> setIsPressed(true) and store pointer id
+                    // В этом случае нажат джойстик -> setIsPressed(значение true) и сохранен идентификатор указателя
                     joystickPointerId = event.getPointerId(event.getActionIndex());
                     joystick.setIsPressed(true);
                 } else {
-                    // Joystick was not previously, and is not pressed in this event -> cast spell
+                    // Джойстик не был нажат ранее и не будет нажат в этом событии -> произнесение заклинания
                     numberOfSpellsToCast ++;
                 }
                 return true;
             case MotionEvent.ACTION_MOVE:
                 if (joystick.getIsPressed()) {
-                    // Joystick was pressed previously and is now moved
+                    // Ранее джойстик был нажат, а теперь перемещен
                     joystick.setActuator((double) event.getX(), (double) event.getY());
                 }
                 return true;
@@ -99,7 +99,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (joystickPointerId == event.getPointerId(event.getActionIndex())) {
-                    // joystick pointer was let go off -> setIsPressed(false) and resetActuator()
+                    // указатель джойстика был отпущен -> setIsPressed(ложь) и сброс настроек()
                     joystick.setIsPressed(false);
                     joystick.resetActuator();
                 }
@@ -148,37 +148,37 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
             spell.draw(canvas, gameDisplay);
         }
 
-        // Draw game panels
+        // Рисование игровых панелей
         joystick.draw(canvas);
         performance.draw(canvas);
 
-        // Draw Game over if the player is dead
+        // Ничья, игра заканчивается, если игрок мертв
         if (player.getHealthPoint() <= 0) {
             gameOver.draw(canvas);
         }
     }
 
     public void update() {
-        // Stop updating the game if the player is dead
+        // Прекратить обновление игры, если игрок мертв
         if (player.getHealthPoint() <= 0) {
             return;
         }
 
-        // Update game state
+        // Обновить состояние игры
         joystick.update();
         player.update();
 
-        // Spawn enemy
+        // Спавн enemy
         if(Enemy.readyToSpawn()) {
             enemyList.add(new Enemy(getContext(), player));
         }
 
-        // Update states of all enemies
+        // Обновите состояния всех врагов
         for (Enemy enemy : enemyList) {
             enemy.update();
         }
 
-        // Update states of all spells
+        // Обновлять состояния всех заклинаний
         while (numberOfSpellsToCast > 0) {
             spellList.add(new Spell(getContext(), player));
             numberOfSpellsToCast --;
@@ -187,13 +187,13 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
             spell.update();
         }
 
-        // Iterate through enemyList and Check for collision between each enemy and the player and
-        // spells in spellList.
+        // Пройдитесь по списку врагов и проверьте, нет ли столкновений между каждым врагом и игроком
+        // и заклинаниями в списке заклинаний.
         Iterator<Enemy> iteratorEnemy = enemyList.iterator();
         while (iteratorEnemy.hasNext()) {
             Circle enemy = iteratorEnemy.next();
             if (Circle.isColliding(enemy, player)) {
-                // Remove enemy if it collides with the player
+                // Убрать противника, если он столкнется с игроком
                 iteratorEnemy.remove();
                 player.setHealthPoint(player.getHealthPoint() - 1);
                 continue;
@@ -202,7 +202,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
             Iterator<Spell> iteratorSpell = spellList.iterator();
             while (iteratorSpell.hasNext()) {
                 Circle spell = iteratorSpell.next();
-                // Remove enemy if it collides with a spell
+                // Удалить врага, если он столкнется с заклинанием
                 if (Circle.isColliding(spell, enemy)) {
                     iteratorSpell.remove();
                     iteratorEnemy.remove();
@@ -210,9 +210,9 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
         }
-        
-        // Update gameDisplay so that it's center is set to the new center of the player's 
-        // game coordinates
+
+        // Обновите gameDisplay, чтобы его центр был установлен на новый центр игрока
+        // игровые координаты
         gameDisplay.update();
     }
 

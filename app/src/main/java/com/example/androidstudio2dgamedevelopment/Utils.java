@@ -3,11 +3,11 @@ package com.example.androidstudio2dgamedevelopment;
 public class Utils {
 
     /**
-     * getDistanceBetweenPoints returns the distance between 2d points p1 and p2
-     * @param p1x
-     * @param p1y
-     * @param p2x
-     * @param p2y
+     * getDistanceBetweenPoints возвращает расстояние между двумерными точками p1 и p2
+     * @параметр p1x
+     * @параметр p1y
+     * @параметр p2x
+     * @параметр p2y
      * @return
      */
     public static double getDistanceBetweenPoints(double p1x, double p1y, double p2x, double p2y) {

@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import com.example.androidstudio2dgamedevelopment.GameDisplay;
 
 /**
- * Circle is an abstract class which implements a draw method from GameObject for drawing the object
- * as a circle.
+ В данном коде представлена абстрактный класс Circle, который наследуется
+ от класса GameObject и реализует метод draw для отрисовки объекта в виде круга.
  */
 public abstract class Circle extends GameObject {
     protected double radius;
@@ -24,7 +24,7 @@ public abstract class Circle extends GameObject {
     }
 
     /**
-     * isColliding checks if two circle objects are colliding, based on their positions and radii.
+     * isColliding проверяет, сталкиваются ли два объекта circle на основе их положений и радиусов.
      * @param obj1
      * @param obj2
      * @return

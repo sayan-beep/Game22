@@ -10,7 +10,7 @@ import com.example.androidstudio2dgamedevelopment.R;
 import com.example.androidstudio2dgamedevelopment.gameobject.Player;
 
 /**
- * HealthBar display the players health to the screen
+ * HealthBar показывает здороьве игрока в полоске
  */
 public class HealthBar {
     private Player player;

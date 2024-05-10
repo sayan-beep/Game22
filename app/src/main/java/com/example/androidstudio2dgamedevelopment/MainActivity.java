@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * MainActivity is the entry point to our application.
+ * MainActivity - это точка входа в наше приложение.
  */
 public class MainActivity extends Activity {
 
@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         Log.d("MainActivity.java", "onCreate()");
         super.onCreate(savedInstanceState);
 
-        // Set content view to game, so that objects in the Game class can be rendered to the screen
+        // Установите режим просмотра содержимого на game, чтобы объекты класса Game могли отображаться на экране
         game = new Game(this);
         setContentView(game);
     }

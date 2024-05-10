@@ -9,7 +9,7 @@ import com.example.androidstudio2dgamedevelopment.R;
 
 
 /**
- * GameOver is a panel which draws the text Game Over to the screen.
+ * GameOver - это панель, которая выводит текст "Конец игры" на экран.
  */
 public class GameOver {
 

@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import com.example.androidstudio2dgamedevelopment.GameDisplay;
 
 /**
- * GameObject is an abstract class which is the foundation of all world objects in the game.
+ * GameObject - это абстрактный класс, который является основой всех объектов мира в игре.
  */
 public abstract class GameObject {
     protected double positionX, positionY = 0.0;
@@ -30,9 +30,9 @@ public abstract class GameObject {
     public abstract void update();
 
     /**
-     * getDistanceBetweenObjects returns the distance between two game objects
-     * @param obj1
-     * @param obj2
+     * getDistanceBetweenObjects возвращает расстояние между двумя игровыми объектами
+     * @параметр obj1
+     * @параметр obj2
      * @return
      */
     public static double getDistanceBetweenObjects(GameObject obj1, GameObject obj2) {

@@ -7,8 +7,8 @@ import com.example.androidstudio2dgamedevelopment.GameLoop;
 import com.example.androidstudio2dgamedevelopment.R;
 
 /**
- * Enemy is a character which always moves in the direction of the player.
- * The Enemy class is an extension of a Circle, which is an extension of a GameObject
+ * enemy - это персонаж, который всегда движется в направлении игрока.
+ * Класс enemy является продолжением Круга, который является продолжением игрового объекта
  */
 public class Enemy extends Circle {
 
@@ -26,7 +26,7 @@ public class Enemy extends Circle {
     }
 
     /**
-     * Enemy is an overload constructor used for spawning enemies in random locations
+     * Enemy - это перегруженный конструктор, используемый для создания врагов в случайных местах
      * @param context
      * @param player
      */
@@ -42,8 +42,8 @@ public class Enemy extends Circle {
     }
 
     /**
-     * readyToSpawn checks if a new enemy should spawn, according to the decided number of spawns
-     * per minute (see SPAWNS_PER_MINUTE at top)
+     * Функция readyToSpawn проверяет, должен ли появиться новый враг, в соответствии с установленным количеством появлений
+     * в минуту (см.  "SPAWN_PER_MINUTE" вверху)
      * @return
      */
     public static boolean readyToSpawn() {
@@ -57,21 +57,20 @@ public class Enemy extends Circle {
     }
 
     public void update() {
-        // =========================================================================================
-        //   Update velocity of the enemy so that the velocity is in the direction of the player
-        // =========================================================================================
-        // Calculate vector from enemy to player (in x and y)
+        // Измените скорость противника так, чтобы она была направлена в сторону игрока
+        //
+        // Вычислить вектор от противника к игроку (в x и y)
         double distanceToPlayerX = player.getPositionX() - positionX;
         double distanceToPlayerY = player.getPositionY() - positionY;
 
-        // Calculate (absolute) distance between enemy (this) and player
+        // Вычилсить (absolute) дистанцию между enemy (this) and player
         double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
 
-        // Calculate direction from enemy to player
+        // Вычислить направление от enemy до player
         double directionX = distanceToPlayerX/distanceToPlayer;
         double directionY = distanceToPlayerY/distanceToPlayer;
 
-        // Set velocity in the direction to the player
+        // Установить ускорение в направление к player
         if(distanceToPlayer > 0) { // Avoid division by zero
             velocityX = directionX*MAX_SPEED;
             velocityY = directionY*MAX_SPEED;
@@ -81,7 +80,7 @@ public class Enemy extends Circle {
         }
 
         // =========================================================================================
-        //   Update position of the enemy
+        //  изменить позицию enemy
         // =========================================================================================
         positionX += velocityX;
         positionY += velocityY;
