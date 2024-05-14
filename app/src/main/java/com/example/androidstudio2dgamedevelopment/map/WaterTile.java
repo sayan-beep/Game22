@@ -11,7 +11,7 @@ class WaterTile extends Tile {
 
     public WaterTile(SpriteSheet spriteSheet, Rect mapLocationRect) {
         super(mapLocationRect);
-        sprite = spriteSheet.getWaterSprite();
+        sprite = spriteSheet.getHouseSprite();
     }
 
     @Override

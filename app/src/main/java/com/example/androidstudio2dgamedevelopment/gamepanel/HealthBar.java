@@ -21,7 +21,7 @@ public class HealthBar {
         this.player = player;
         this.width = 100;
         this.height = 20;
-        this.margin = 2;
+        this.margin = 3;
 
         this.borderPaint = new Paint();
         int borderColor = ContextCompat.getColor(context, R.color.healthBarBorder);
@@ -35,7 +35,7 @@ public class HealthBar {
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
         float x = (float) player.getPositionX();
         float y = (float) player.getPositionY();
-        float distanceToPlayer = 30;
+        float distanceToPlayer = 60;
         float healthPointPercentage = (float) player.getHealthPoint()/player.MAX_HEALTH_POINTS;
 
         // Draw border
